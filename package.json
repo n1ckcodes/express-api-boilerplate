@@ -1,0 +1,25 @@
+{
+  "name": "generic-api-boilerplate",
+  "version": "1.0.0",
+  "description": "A generic template for starting an Express API server",
+  "main": "index.js",
+  "scripts": {
+    "start-dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nick Wasik",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^15.1.0",
+    "axios": "^0.26.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "helmet": "^5.0.2",
+    "joi": "^14.3.1",
+    "lodash": "^4.17.21",
+    "nodemon": "^2.0.15",
+    "winston": "^3.2.1"
+  }
+}

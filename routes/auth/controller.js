@@ -1,17 +1,21 @@
-var express = require("express");
-var router = express.Router();
-var log = require("../../middleware/logger");
+const express = require("express");
+const router = express.Router();
+const { logger } = require("../../middleware/logger");
+const { authorization, isNotAuthorized, isAuthorized } = require("../../middleware/auth.js");
 
-const AuthUtils = require("./utils");
+router.post("/authorization", authorization(), async (req, res, next) => {
+  return res.send('OK')
+});
 
-router.post("/login", async (req, res) => {
-  log.logger.info("This was logged");
-  const { username, password } = req.body;
-  await AuthUtils.login(username, password).catch((e) => {
-    //add error logging here
-  });
-  console.log(username, password);
-  res.send("Logged in");
+router.post("/unauthorized", isNotAuthorized(), async (req, res, next) => {
+  //middleware should handle response and the 200 response will not be sent
+  //instead response will be handled via the middleware
+  return res.status(200).send('OK')
+});
+
+router.post("/authorized", isAuthorized(), async (req, res, next) => {
+   //middleware will run and return successful auth / next() and we will get an okay response
+  return res.send('OK')
 });
 
 module.exports = router;

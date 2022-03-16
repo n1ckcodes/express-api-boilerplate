@@ -5,6 +5,7 @@ const helmet = require("helmet");
 const uuid = require("uuid");
 const app = express();
 const { logger } = require("./middleware/logger");
+const { errorLogger } = require("./middleware/errors");
 
 app.use(cors());
 app.use(helmet());
@@ -35,12 +36,8 @@ app.get("/api/status", async (req, res) => {
   res.send("Service is running");
 });
 
-app.use((err, req, res, next) => {
-  req.logger.req_id = req.logger.fields.req_id
-  req.logger.error(err, req.logger.fields.req_id)
-  
-  return res.status(500).send("A critical error has occurred.");
-});
+app.use(errorLogger);
+
 
 const port = process.env.PORT || 8081;
 
